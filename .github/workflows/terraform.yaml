@@ -1,0 +1,48 @@
+name: Terraform
+on:
+  workflow_call:
+    inputs:
+      terraform_version:
+        default: 1.0.11
+        type: string
+      module:
+        type: string
+        required: true
+
+jobs:
+  plan:
+    name: Terraform
+    runs-on: [self-hosted]
+    defaults:
+      run:
+        shell: bash
+        working-directory: ${{ inputs.module }}
+
+    steps:
+
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v1
+      with:
+        terraform_version: ${{ inputs.terraform_version }}
+
+    - name: Setup Node
+      uses: actions/setup-node@v2
+      with:
+        node-version: '14'
+
+    - name: Terraform Format
+      id: fmt
+      run: terraform fmt -check
+
+    - name: Terraform Init
+      id: init
+      run: terraform init
+
+    - name: Terraform Validate
+      id: validate
+      run: terraform validate
+
+   

@@ -1,0 +1,23 @@
+name: backup-organization-policy
+on:
+  pull_request:
+    branches:
+    - main
+    paths:
+    - backup-organization-policy/**
+    types:
+    - closed
+    - opened
+    - reopened
+    - synchronize
+jobs:
+  terraform:
+    uses: ./.github/workflows/terraform.yaml
+    concurrency: ${{ github.workflow }}
+    with:
+      module: backup-organization-policy
+    permissions:
+      checks: write
+      contents: read
+      id-token: write
+      pull-requests: write

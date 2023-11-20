@@ -1,0 +1,23 @@
+name: backup-vault
+on:
+  pull_request:
+    branches:
+    - main
+    paths:
+    - backup-vault/**
+    types:
+    - closed
+    - opened
+    - reopened
+    - synchronize
+jobs:
+  terraform:
+    uses: ./.github/workflows/terraform.yaml
+    concurrency: ${{ github.workflow }}
+    with:
+      module: backup-vault
+    permissions:
+      checks: write
+      contents: read
+      id-token: write
+      pull-requests: write
