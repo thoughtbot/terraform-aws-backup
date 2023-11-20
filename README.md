@@ -18,7 +18,7 @@ The example will create two organization backup policies to target resources in 
 ```terraform
  # Terraform module to manage the Organization backup policy in management account
  module "backup-organization-policy" {
-   source    = "github.com/thoughtbot/terraform-aws-backup//backup/backup-organization-policy?ref=VERSION"
+   source    = "github.com/thoughtbot/terraform-aws-backup//backup-organization-policy?ref=VERSION"
 
    providers = { aws = aws.management }
 
@@ -27,7 +27,7 @@ The example will create two organization backup policies to target resources in 
 
 # Terraform module to manage the Central Backup policy in the delegated backup account
 module "central-backup-policy" {
-   source    = "github.com/thoughtbot/terraform-aws-backup//backup/central-backup-policy?ref=VERSION"
+   source    = "github.com/thoughtbot/terraform-aws-backup//central-backup-policy?ref=VERSION"
 
    providers = { aws = aws.delegate_backup_account }
 
@@ -55,7 +55,7 @@ module "central-backup-policy" {
 
 # Backup vaults for each account / region meant to store a backup
  module "workload-account-vault-ue1" {
-   source    = "github.com/thoughtbot/terraform-aws-backup//backup/backup-vault?ref=VERSION"
+   source    = "github.com/thoughtbot/terraform-aws-backup//backup-vault?ref=VERSION"
 
    providers = { aws = aws.workload_account_ue1 }
 
@@ -63,7 +63,7 @@ module "central-backup-policy" {
  }
 
  module "workload-account-vault-ue2" {
-   source    = "github.com/thoughtbot/terraform-aws-backup//backup/backup-vault?ref=VERSION"
+   source    = "github.com/thoughtbot/terraform-aws-backup//backup-vault?ref=VERSION"
 
    providers = { aws = aws.workload_account_ue2 }
 
@@ -71,7 +71,7 @@ module "central-backup-policy" {
  }
 
  module "backup-account-vault-uw1" {
-   source    = "github.com/thoughtbot/terraform-aws-backup//backup/backup-vault?ref=VERSION"
+   source    = "github.com/thoughtbot/terraform-aws-backup//backup-vault?ref=VERSION"
 
    providers = { aws = aws.backup_account_uw1 }
 
