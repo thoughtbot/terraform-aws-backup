@@ -43,7 +43,6 @@ module "central-backup-policy" {
    backup_selection_tags = {
      Backup = ["true"]
    }
-   delegate_account_id = var.delegate_account_id
 
    target_resource_region = each.value.target_resource_region
    secondary_vault_region = each.value.secondary_vault_region
@@ -141,6 +140,18 @@ The `backup-organization-policy` module will require permissions in the manageme
                 "Action": [
                     "organizations:Describe*",
                     "organizations:List*"
+                ],
+                "Effect": "Allow",
+                "Resource": "*"
+            },
+            {
+                "Sid": "Stmt1702517085243",
+                "Action": [
+                    "organizations:DisableAWSServiceAccess",
+                    "organizations:DisablePolicyType",
+                    "organizations:EnableAWSServiceAccess",
+                    "organizations:EnableAllFeatures",
+                    "organizations:EnablePolicyType"
                 ],
                 "Effect": "Allow",
                 "Resource": "*"

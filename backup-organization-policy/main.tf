@@ -9,6 +9,14 @@ resource "aws_backup_global_settings" "cross_account_backup" {
   }
 }
 
+resource "aws_organizations_organization" "org" {
+  aws_service_access_principals = [
+    "backup.amazonaws.com"
+  ]
+  enabled_policy_types = ["BACKUP_POLICY"]
+  feature_set          = "ALL"
+}
+
 resource "aws_organizations_resource_policy" "allow_delegated_backup_administrator" {
   content = data.aws_iam_policy_document.organization_backup_policy.json
 }
