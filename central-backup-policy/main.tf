@@ -1,7 +1,7 @@
 resource "aws_organizations_policy" "backup_policy" {
-  name        = "{var.name}-backup-policy"
+  name        = "${var.name}-backup-policy"
   content     = jsonencode(local.backup_plans)
-  description = "{var.name}-backup-policy"
+  description = "${var.name}-backup-policy"
   type        = "BACKUP_POLICY"
 }
 
