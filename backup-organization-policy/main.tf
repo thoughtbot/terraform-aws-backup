@@ -1,8 +1,6 @@
 resource "aws_organizations_delegated_administrator" "management" {
   account_id        = var.delegate_account_id
   service_principal = "backup.amazonaws.com"
-
-  depends_on = [aws_organizations_organization.org]
 }
 
 resource "aws_backup_global_settings" "cross_account_backup" {
