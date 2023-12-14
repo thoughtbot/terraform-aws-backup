@@ -144,18 +144,6 @@ The `backup-organization-policy` module will require permissions in the manageme
                 ],
                 "Effect": "Allow",
                 "Resource": "*"
-            },
-            {
-                "Sid": "Stmt1702517085243",
-                "Action": [
-                    "organizations:DisableAWSServiceAccess",
-                    "organizations:DisablePolicyType",
-                    "organizations:EnableAWSServiceAccess",
-                    "organizations:EnableAllFeatures",
-                    "organizations:EnablePolicyType"
-                ],
-                "Effect": "Allow",
-                "Resource": "*"
             }
         ]
 }
