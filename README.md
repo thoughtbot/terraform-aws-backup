@@ -43,7 +43,6 @@ module "central-backup-policy" {
    backup_selection_tags = {
      Backup = ["true"]
    }
-   delegate_account_id = var.delegate_account_id
 
    target_resource_region = each.value.target_resource_region
    secondary_vault_region = each.value.secondary_vault_region
@@ -122,7 +121,8 @@ The `backup-organization-policy` module will require permissions in the manageme
             {
                 "Sid": "UpdateAwsBackupGlobalSetting",
                 "Action": [
-                    "backup:UpdateGlobalSettings"
+                    "backup:UpdateGlobalSettings",
+                    "backup:DescribeGlobalSettings"
                 ],
                 "Effect": "Allow",
                 "Resource": "*"
@@ -144,12 +144,37 @@ The `backup-organization-policy` module will require permissions in the manageme
                 ],
                 "Effect": "Allow",
                 "Resource": "*"
+            },
+            {
+                "Sid": "Stmt1702517085243",
+                "Action": [
+                    "organizations:DisableAWSServiceAccess",
+                    "organizations:DisablePolicyType",
+                    "organizations:EnableAWSServiceAccess",
+                    "organizations:EnableAllFeatures",
+                    "organizations:EnablePolicyType"
+                ],
+                "Effect": "Allow",
+                "Resource": "*"
             }
         ]
 }
 ```
 
 You may then use the created IAM role as a provider for the `backup-organization-policy`  terraform module 
+
+### Enabling Cross account monitoring and Organization backup policies.
+
+Finally, you will have to enable Cross account monitoring and Organization backup polices from the AWS Console in the management account.
+
+#### Steps
+
+1. Navigate to the [Backup service](https://eu-central-1.console.aws.amazon.com/backup) dashboard for the managemmen account 
+
+2. Go to the settings under `My Account`
+
+3. Under `Cross-account management`, Turn on `Cross-account monitoring` and `Backup policies`
+
 
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
