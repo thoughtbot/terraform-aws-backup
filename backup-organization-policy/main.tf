@@ -61,6 +61,19 @@ data "aws_iam_policy_document" "organization_backup_policy" {
     }
   }
   statement {
+    sid    = "AllowBackupPoliciesTagModification"
+    effect = "Allow"
+    principals {
+      identifiers = [var.delegate_account_id]
+      type        = "AWS"
+    }
+    resources = ["*"]
+    actions = [
+      "organizations:TagResource",
+      "organizations:UntagResource"
+    ]
+  }
+  statement {
     sid = "AllowBackupPoliciesAttachmentAndDetachmentToAllAccountsAndOUs"
     actions = [
       "organizations:AttachPolicy",
